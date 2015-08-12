@@ -1,11 +1,10 @@
 <?php
 /*
 Plugin Name: KDESC
-Plugin URI: http://example.com/wordpress-plugins/my-plugin
-Description: Custom keywords and description for tags and category.
+Plugin URI: https://github.com/b9sk/kdesc
+Description: Adding keywords field for tag and category taxonomies. Output META description and META keywords to HEAD.
 Version: 0.2
 Author: Your mom
-Author URI: http://somegitlink.com
 License: Free
 */
 
