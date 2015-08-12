@@ -3,7 +3,7 @@
 Plugin Name: KDESC
 Plugin URI: https://github.com/b9sk/kdesc
 Description: Adding keywords field for tag and category taxonomies. Output META description and META keywords to HEAD.
-Version: 0.2
+Version: 0.3
 Author: Your mom
 License: Free
 */
