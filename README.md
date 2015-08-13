@@ -1,5 +1,5 @@
 # kdesc
-Add meta keywords and meta description fields for category and tag taxonomies. Also give able to rewrite title-tag.
+Add _meta keywords_ and _meta description_ fields for category and tag taxonomies. Also give able to rewrite title-tag.
 
 ## Installation
 * Put the archive to _wp-content/plugins/_
