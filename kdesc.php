@@ -2,14 +2,14 @@
 /*
 Plugin Name: KDESC
 Plugin URI: https://github.com/b9sk/kdesc
-Description: Adding keywords field for tag and category taxonomies. Output META description and META keywords to HEAD.
-Version: 0.3
+Description: Adding keywords field for tag and category taxonomies. Rewrite title-tag. Output META description and META keywords to HEAD.
+Version: 0.4
 Author: Your mom
 License: Free
 */
 
 /**
- * Дополнительные поле keywords для tag и category
+ * Дополнительные поля keywords, description, title для tag и category
  */
 
 require_once("Tax-meta-class/Tax-meta-class.php");
@@ -50,24 +50,17 @@ add_action( 'wp_head', function() {
 
   if ( is_tag() ) {
 
-    global $wpdb;
     $tax_id = get_query_var('tag_id');
 
   }
 
   if ( is_category() ) {
 
-    global $wpdb;
     $tax_id = get_query_var('cat');
 
   }
 
   if ( is_category() || is_tag() ) {
-
-    /*$kdesc_data = $wpdb->get_row("
-          SELECT description FROM $wpdb->term_taxonomy
-          WHERE term_taxonomy_id = $tax_id
-    ");*/
 
     $kdesc_keywords_data = get_tax_meta(
           $tax_id,
