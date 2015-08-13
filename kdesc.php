@@ -27,7 +27,9 @@ if (is_admin()) {
 
   $kdesc_field =  new Tax_Meta_Class( $kdesc_config );
 
-  $kdesc_field->addText( 'm_kdesc_keywords', array('name'=> __('Keywords', 'tax-meta'), 'desc' => 'Custom keywords for this taxonomy.' ) );
+  $kdesc_field->addText( 'm_kdesc_keywords', array('name'=> __('Meta Keywords', 'tax-meta'), 'desc' => 'Custom keywords for this taxonomy.' ) );
+  $kdesc_field->addText( 'm_kdesc_description', array('name'=> __('Meta Description', 'tax-meta'), 'desc' => 'Custom description for this taxonomy.' ) );
+  $kdesc_field->addText( 'm_kdesc_title', array('name'=> __('Custom title', 'tax-meta'), 'desc' => 'Rewrite title-tag.' ) );
 
   $kdesc_field->Finish();
 }
@@ -62,19 +64,45 @@ add_action( 'wp_head', function() {
 
   if ( is_category() || is_tag() ) {
 
-    $kdesc_data = $wpdb->get_row("
+    /*$kdesc_data = $wpdb->get_row("
           SELECT description FROM $wpdb->term_taxonomy
           WHERE term_taxonomy_id = $tax_id
-    ");
+    ");*/
 
     $kdesc_keywords_data = get_tax_meta(
           $tax_id,
           'm_kdesc_keywords'
     );
 
+    $kdesc_description_data = get_tax_meta(
+          $tax_id,
+          'm_kdesc_description'
+    );
+
     do_action('wp_head_add_meta', 'keywords', $kdesc_keywords_data);
-    do_action('wp_head_add_meta', 'description', $kdesc_data->description);
+    do_action('wp_head_add_meta', 'description', $kdesc_description_data);
+
   }
 } ); //---/wp_head---
+
+
+/*
+ * Перезаписать title
+ */
+
+add_filter( 'wp_title', 'kdesc_title_tag_rewtite' );
+
+function kdesc_title_tag_rewtite($title) {
+  if ( is_category() || is_tag() ) {
+
+    $tax_id = is_category() ? get_query_var('cat') : get_query_var('tag_id');
+    $title = get_tax_meta($tax_id, 'm_kdesc_title') ?
+      get_tax_meta($tax_id, 'm_kdesc_title') . ' | ' . get_bloginfo( 'name' ) :
+      $title;
+
+  }
+  return $title;
+}
+
 
 
